@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<style>
+body { margin:0; background:black; font-family:sans-serif; }
+
+.container { width:800px; padding:10px; color:white; }
+
+.names {
+  display:flex;
+  justify-content:space-between;
+  font-size:24px;
+  font-weight:bold;
+}
+
+.bar-bg {
+  position:relative;
+  width:100%;
+  height:30px;
+  background:#222;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+.bar-a {
+  position:absolute;
+  left:0;
+  height:100%;
+  background:linear-gradient(90deg,#ff4da6,#a64dff);
+  width:50%;
+  transition:0.3s;
+}
+
+.bar-b {
+  position:absolute;
+  right:0;
+  height:100%;
+  background:linear-gradient(90deg,#4dd2ff,#0066ff);
+  width:50%;
+  transition:0.3s;
+}
+
+.center-line {
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:4px;
+  background:white;
+  left:50%;
+  transform:translateX(-50%);
+  box-shadow:0 0 10px white;
+}
+
+.scores {
+  display:flex;
+  justify-content:space-between;
+  font-size:20px;
+  margin-top:5px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+  <div class="names">
+    <div>A</div>
+    <div>B</div>
+  </div>
+
+  <div class="bar-bg">
+    <div class="bar-a" id="barA"></div>
+    <div class="bar-b" id="barB"></div>
+    <div class="center-line"></div>
+  </div>
+
+  <div class="scores">
+    <div id="scoreA">0</div>
+    <div id="scoreB">0</div>
+  </div>
+</div>
+
+<script>
+let scoreA = 0;
+let scoreB = 0;
+
+function update(){
+  let total = scoreA + scoreB;
+  if(total === 0) total = 1;
+
+  let a = (scoreA / total) * 100;
+  let b = (scoreB / total) * 100;
+
+  document.getElementById("barA").style.width = a + "%";
+  document.getElementById("barB").style.width = b + "%";
+
+  document.getElementById("scoreA").innerText = scoreA;
+  document.getElementById("scoreB").innerText = scoreB;
+}
+
+window.addA = function(v){
+  scoreA += v;
+  update();
+}
+
+window.addB = function(v){
+  scoreB += v;
+  update();
+}
+</script>
+
+</body>
+</html>
